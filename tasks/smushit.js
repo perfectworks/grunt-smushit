@@ -24,10 +24,10 @@ module.exports = function( grunt ) {
             fs       = require('fs'),
             logError = grunt.fail.fatal,
             task     = this,
-            source   = task.filesSrc || task.file.src,
+            source   = this.data.src,
             copyFile = grunt.file.copy,
             files    = [],
-            dest     = task.filesDest || task.file.dest;
+            dest     = this.data.dest;
 
         if( dest && typeof source === 'string' && !_hasImageExtension( source ) ) {
             files = wrench.readdirSyncRecursive(source).filter(function (filename) {
@@ -83,6 +83,7 @@ module.exports = function( grunt ) {
                 grunt.log.writeln( '[grunt-smushit] Copying images from ' + source + ' to ' + output );
 
                 if( !exists( source ) ) {
+                    console.log("source:", source);
                     grunt.file.mkdir( source );
                 }
 
